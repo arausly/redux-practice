@@ -1,1 +1,1 @@
-# React-Timer-App
+# React-Redux Practice
