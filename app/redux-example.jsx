@@ -1,22 +1,14 @@
-import redux from 'redux';
-
+var redux = require('redux');
 console.log('Starting Redux...');
 
-
-
-function changeProp(obj){
-    return {
-        ...obj,
-        name:'karo',
+const reducer = (state = {name:"Anonymous"},action) =>{
     
-    }
-//    obj.name ="daniel";
-//    return obj;
-} 
+    return state;
+}
 
 
-let res = changeProp({
-    name:"Arausi",
-});
+var  store = redux.createStore(reducer);
 
-console.log(res);
+var currentState = store.getState();
+
+console.log("current state, ", currentState);

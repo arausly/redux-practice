@@ -11099,7 +11099,8 @@ ReactDOM.render(React.createElement(
   'React Boiler plate 3'
 ), document.getElementById('main'));
 
-__webpack_require__(240);
+//require('./redux-example.jsx');
+__webpack_require__(257);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(232)))
 
 /***/ }),
@@ -26923,38 +26924,7 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _redux = __webpack_require__(252);
-
-var _redux2 = _interopRequireDefault(_redux);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-console.log('Starting Redux...');
-
-function changeProp(obj) {
-    return _extends({}, obj, {
-        name: 'karo'
-
-    });
-    //    obj.name ="daniel";
-    //    return obj;
-}
-
-var res = changeProp({
-    name: "Arausi"
-});
-
-console.log(res);
-
-/***/ }),
+/* 240 */,
 /* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27679,6 +27649,31 @@ module.exports = function (module) {
 	}
 	return module;
 };
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var redux = __webpack_require__(252);
+
+console.log('Starting Redux.....');
+
+var reducer = function reducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { searchText: '', showCompleted: false, todos: [] };
+    var action = arguments[1];
+
+
+    return state;
+};
+
+var store = redux.createStore(reducer);
+
+var currentState = store.getState();
+
+console.log("Current State, ", currentState);
 
 /***/ })
 /******/ ]);
