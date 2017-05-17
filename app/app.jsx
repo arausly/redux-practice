@@ -11,3 +11,5 @@ $(document).foundation();
 ReactDOM.render(
 <p>React Boiler plate 3</p>, 
 document.getElementById('main'));
+
+require('./redux-example.jsx');
