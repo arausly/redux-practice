@@ -8,7 +8,8 @@ import {
             removeHobby,
             changeName,
             removeMovie,
-            addMovie
+            addMovie,
+            fetching
        } from './actions/index.jsx';
 var store = require('./store/configureStore.jsx').configure();
 
@@ -16,25 +17,8 @@ console.log('Starting Redux...');
 
 
 
-let fetching = () =>{
-    store.dispatch(fetchingHasStarted());
-    
-//    fetch("http://ipinfo.io/developers",{method:"GET"}).then(res => res.json()).then(json =>{
-//        let jsonObj = JSON.parse(json);
-//        let loc = jsonObj.data.loc;
-//        let base_url ="https://maps.google.com?q=";
-//        
-//         store.dispatch(fetchingHasCompleted(base_url + loc));
-//    });
-    axios.get("http://ipinfo.io").then(json =>{
-        let loc = json.data.loc;
-        let base_url ="https://maps.google.com?q=";
-        
-        store.dispatch(fetchingHasCompleted(base_url+loc));
-    });
-}
+store.dispatch(fetching());
 
-fetching();
 let trashIt = store.subscribe(()=>{
    let state = store.getState();
     

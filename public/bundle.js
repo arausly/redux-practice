@@ -13450,25 +13450,8 @@ var store = __webpack_require__(425).configure();
 
 console.log('Starting Redux...');
 
-var fetching = function fetching() {
-    store.dispatch((0, _index.fetchingHasStarted)());
+store.dispatch((0, _index.fetching)());
 
-    //    fetch("http://ipinfo.io/developers",{method:"GET"}).then(res => res.json()).then(json =>{
-    //        let jsonObj = JSON.parse(json);
-    //        let loc = jsonObj.data.loc;
-    //        let base_url ="https://maps.google.com?q=";
-    //        
-    //         store.dispatch(fetchingHasCompleted(base_url + loc));
-    //    });
-    axios.get("http://ipinfo.io").then(function (json) {
-        var loc = json.data.loc;
-        var base_url = "https://maps.google.com?q=";
-
-        store.dispatch((0, _index.fetchingHasCompleted)(base_url + loc));
-    });
-};
-
-fetching();
 var trashIt = store.subscribe(function () {
     var state = store.getState();
 
@@ -31286,12 +31269,290 @@ module.exports = function spread(callback) {
 "use strict";
 
 
-/***/ }),
-/* 424 */,
-/* 425 */
-/***/ (function(module, exports) {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var axios = __webpack_require__(405);
+// action generators addMovie
+//--------------------------
 
-throw new Error("Module build failed: SyntaxError: C:/Users/User/documents/_web001/full-react/react-timer-app/react-todo-app/react-todo-app/std-react-boilerplate/app/store/configureStore.jsx: Unexpected token (1:17)\n\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 1 | \u001b[39m\u001b[36mexport\u001b[39m configure \u001b[33m=\u001b[39m () \u001b[33m=>\u001b[39m{\n \u001b[90m   | \u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 2 | \u001b[39m    \n \u001b[90m 3 | \u001b[39m    \u001b[36mreturn\u001b[39m store\u001b[33m;\u001b[39m\n \u001b[90m 4 | \u001b[39m}\u001b[0m\n");
+var addMovie = function addMovie(title, Genre) {
+    return {
+        type: "ADD_MOVIE",
+        title: title,
+        Genre: Genre
+    };
+};
+
+// action generators  removeMovie
+//--------------------------
+
+var removeMovie = function removeMovie(id) {
+    return {
+        type: "REMOVE_MOVIE",
+        id: id
+    };
+};
+
+// action generators changeName
+//--------------------------
+
+var changeName = function changeName(name) {
+    return {
+        type: "CHANGE_NAME",
+        name: name
+    };
+};
+
+// action generators addHobby
+//--------------------------
+
+var addHobby = function addHobby(hobby) {
+    return {
+        type: "ADD_HOBBY",
+        hobby: hobby
+    };
+};
+
+// action generators removeHobby
+//--------------------------
+
+var removeHobby = function removeHobby(id) {
+    return {
+        type: "REMOVE_MOVIE",
+        id: id
+    };
+};
+
+// ------------ MapReducer action generators-------------- //
+
+var fetchingHasStarted = function fetchingHasStarted() {
+    return {
+        type: "FETCHING_HAS_STARTED"
+    };
+};
+
+var fetchingHasCompleted = function fetchingHasCompleted(url) {
+    return {
+        type: "FETCHING_HAS_COMPLETED",
+        url: url
+    };
+};
+
+//-------------------------------------------------------//
+
+
+var fetching = function fetching() {
+    return function (dispatch, getState) {
+        dispatch(fetchingHasStarted());
+
+        //    fetch("http://ipinfo.io/developers",{method:"GET"}).then(res => res.json()).then(json =>{
+        //        let jsonObj = JSON.parse(json);
+        //        let loc = jsonObj.data.loc;
+        //        let base_url ="https://maps.google.com?q=";
+        //        
+        //         store.dispatch(fetchingHasCompleted(base_url + loc));
+        //    });
+        axios.get("http://ipinfo.io").then(function (json) {
+            var loc = json.data.loc;
+            var base_url = "https://maps.google.com?q=";
+
+            dispatch(fetchingHasCompleted(base_url + loc));
+        });
+    };
+};
+
+exports.fetchingHasCompleted = fetchingHasCompleted;
+exports.fetchingHasStarted = fetchingHasStarted;
+exports.addHobby = addHobby;
+exports.removeHobby = removeHobby;
+exports.changeName = changeName;
+exports.removeMovie = removeMovie;
+exports.addMovie = addMovie;
+exports.fetching = fetching;
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+// ------------ reducer  for name -------------- //
+//-------------------------------------------------------//
+
+var nameReducer = function nameReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Anonymous";
+    var action = arguments[1];
+
+
+    switch (action.type) {
+        case "CHANGE_NAME":
+            return action.name;
+            break;
+        default:
+            return state;
+            break;
+    }
+};
+
+// ------------ reducer for hobbiesReducer -------------- //
+//-------------------------------------------------------//
+var idHobby = 1;
+var hobbiesReducer = function hobbiesReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+
+    switch (action.type) {
+        case "ADD_HOBBY":
+            return [].concat(_toConsumableArray(state), [{
+
+                id: idHobby++,
+                hobby: action.hobby
+            }]);
+            break;
+        case "REMOVE_HOBBY":
+            return [state.filter(function (hobby) {
+                return hobby.id !== action.id;
+            })];
+            break;
+        default:
+            return state;
+            break;
+    }
+};
+
+// ------------ reducer for movie -------------- //
+//----------------------------------------------//
+var movieId = 1;
+var movieReducer = function movieReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+    switch (action.type) {
+        case "ADD_MOVIE":
+            return [].concat(_toConsumableArray(state), [{
+                id: movieId++,
+                title: action.title,
+                genre: action.Genre
+            }]);
+            break;
+        case "REMOVE_MOVIE":
+            return [state.filter(function (hobby) {
+                return hobby.id !== action.id;
+            })];
+            break;
+        default:
+            return state;
+    }
+};
+
+// ------------ MapReducer -------------- //
+//-------------------------------------------------------//
+var stateInit = {
+    isFetching: false,
+    url: undefined
+};
+
+var MapReducer = function MapReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateInit;
+    var action = arguments[1];
+
+
+    switch (action.type) {
+        case "FETCHING_HAS_STARTED":
+            return {
+                isFetching: true,
+                url: undefined
+            };
+            break;
+        case "FETCHING_HAS_COMPLETED":
+            return {
+                isFetching: false,
+                url: action.url
+            };
+            break;
+        default:
+            return state;
+            break;
+    }
+};
+
+//-------------------------------------------------------//
+
+exports.MapReducer = MapReducer;
+exports.movieReducer = movieReducer;
+exports.hobbiesReducer = hobbiesReducer;
+exports.nameReducer = nameReducer;
+///
+
+/***/ }),
+/* 425 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.configure = undefined;
+
+var _index = __webpack_require__(424);
+
+var redux = __webpack_require__(369);
+var thunk = __webpack_require__(426).default;
+var configure = exports.configure = function configure() {
+
+    var reducer = redux.combineReducers({
+        movies: _index.movieReducer,
+        hobbies: _index.hobbiesReducer,
+        name: _index.nameReducer,
+        map: _index.MapReducer
+    });
+
+    var store = redux.createStore(reducer, redux.compose(redux.applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : function (f) {
+        return f;
+    }));
+
+    return store;
+};
+
+/***/ }),
+/* 426 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+exports['default'] = thunk;
 
 /***/ })
 /******/ ]);
