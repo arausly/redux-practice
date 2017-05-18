@@ -11698,75 +11698,8 @@ __webpack_require__(161)(__webpack_require__(391))
 "use strict";
 
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 var redux = __webpack_require__(369);
 console.log('Starting Redux...');
-
-// ------------ reducer for movie -------------- //
-//----------------------------------------------//
-var movieId = 1;
-var movieReducer = function movieReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var action = arguments[1];
-
-    switch (action.type) {
-        case "ADD_MOVIE":
-            return [].concat(_toConsumableArray(state), [{
-                id: movieId++,
-                title: action.title,
-                genre: action.Genre
-            }]);
-            break;
-        case "REMOVE_MOVIE":
-            return [state.filter(function (hobby) {
-                return hobby.id !== action.id;
-            })];
-            break;
-        default:
-            return state;
-    }
-};
-
-// ------------ reducer for hobbiesReducer -------------- //
-//-------------------------------------------------------//
-var idHobby = 1;
-var hobbiesReducer = function hobbiesReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var action = arguments[1];
-
-
-    switch (action.type) {
-        case "ADD_HOBBY":
-            return [].concat(_toConsumableArray(state), [{
-
-                id: idHobby++,
-                hobby: action.hobby
-            }]);
-            break;
-        default:
-            return state;
-            break;
-    }
-};
-
-// ------------ reducer  for name -------------- //
-//-------------------------------------------------------//
-
-var nameReducer = function nameReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Anonymous";
-    var action = arguments[1];
-
-
-    switch (action.type) {
-        case "CHANGE_NAME":
-            return action.name;
-            break;
-        default:
-            return state;
-            break;
-    }
-};
 
 var reducer = redux.combineReducers({
     movies: movieReducer,

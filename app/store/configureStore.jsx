@@ -1,0 +1,4 @@
+export configure = () =>{
+    
+    return store;
+}
